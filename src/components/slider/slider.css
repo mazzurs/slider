@@ -1,0 +1,38 @@
+.slider {
+    position: absolute;
+    margin-left: 200px;
+    width: 640px;
+    height: 480px;
+}
+
+.arrow-left {
+    position: fixed;
+    left: 126px;
+}
+
+.arrow-right {
+    position: fixed;
+    left: 845px;
+}
+
+.transition {
+    transition: 3s;
+}
+
+.image {
+    position: absolute;
+    margin-left: -393px;
+    top: 0px;
+    left: 600px;
+}
+
+.text {
+    position: absolute;
+    margin-left: -146px;
+    top: 148px;
+    left: 353px;
+}
+
+.hero {
+
+}
