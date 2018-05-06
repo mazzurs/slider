@@ -15,10 +15,6 @@
     left: 845px;
 }
 
-.transition {
-    transition: 3s;
-}
-
 .image {
     position: absolute;
     margin-left: -393px;
@@ -31,8 +27,4 @@
     margin-left: -146px;
     top: 148px;
     left: 353px;
-}
-
-.hero {
-
 }

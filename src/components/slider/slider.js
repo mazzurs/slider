@@ -1,7 +1,6 @@
 import React from 'react'
 import 'font-awesome/css/font-awesome.min.css'
 import './slider.css'
-import $ from 'jquery'
 
 export default class Slider extends React.Component {
   constructor (props) {
@@ -13,13 +12,11 @@ export default class Slider extends React.Component {
       number: 0
     }
 
-    let that = this
-    this.interval = setInterval(function () {
-      that.goRight()
-    }, 2000)
+    this.goToTheRightEveryTwoSeconds()
 
     this.goLeft = this.goLeft.bind(this)
     this.goRight = this.goRight.bind(this)
+    this.goToTheRightEveryTwoSeconds = this.goToTheRightEveryTwoSeconds.bind(this)
   }
 
   componentWillMount () {
@@ -27,16 +24,18 @@ export default class Slider extends React.Component {
   }
 
   componentDidMount () {
-    let that = this
-    $('.slider').on('mouseenter', function () {
-      clearInterval(that.interval)
-    })
+    document.getElementById('slider').onmouseover =
+      document.getElementById('slider').onmouseout = handler
 
-    $('.slider').on('mouseleave', function () {
-      that.interval = setInterval(function () {
-        that.goRight()
-      }, 2000)
-    })
+    let that = this
+    function handler (event) {
+      if (event.type == 'mouseover') {
+        clearInterval(that.interval)
+      }
+      if (event.type == 'mouseout') {
+        that.goToTheRightEveryTwoSeconds()
+      }
+    }
   }
 
   goLeft () {
@@ -54,10 +53,7 @@ export default class Slider extends React.Component {
       })
     }
     clearInterval(this.interval)
-    let that = this
-    this.interval = setInterval(function () {
-      that.goRight()
-    }, 2000)
+    this.goToTheRightEveryTwoSeconds()
   }
 
   goRight () {
@@ -75,6 +71,10 @@ export default class Slider extends React.Component {
       })
     }
     clearInterval(this.interval)
+    this.goToTheRightEveryTwoSeconds()
+  }
+
+  goToTheRightEveryTwoSeconds () {
     let that = this
     this.interval = setInterval(function () {
       that.goRight()
@@ -82,15 +82,14 @@ export default class Slider extends React.Component {
   }
 
   render () {
-    const img = this.state.item
     let {hero, text, image} = this.state.item
 
     return (
       <div>
-        <div className="slider">
-            <img className="hero" src={hero} alt="text"/>
-            <img className="image" itemID="image" src={image} alt="text"/>
-            <label className="text" htmlFor="text">{text}</label>
+        <div id="slider" className="slider">
+          <img className="hero" src={hero} alt="text"/>
+          <img className="image" itemID="image" src={image} alt="text"/>
+          <label className="text" htmlFor="text">{text}</label>
         </div>
         <div>
           <div className="arrow-left" onClick={this.goLeft}>
@@ -101,7 +100,6 @@ export default class Slider extends React.Component {
           </div>
         </div>
       </div>
-
     )
   }
 }
